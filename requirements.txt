@@ -1,3 +1,6 @@
 langchain==0.0.240
 faiss-cpu
 sentence_transformers
+InstructorEmbedding
+openai==0.28
+tiktoken
