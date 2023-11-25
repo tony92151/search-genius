@@ -33,6 +33,24 @@
           "markdownDescription": "Specify API Endpoint of searchgenius."
         }
       }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "searchgenius-bar",
+          "title": "searchgenius",
+          "icon": "resources/sg_icon.png"
+        }
+      ]
+    },
+    "views": {
+      "searchgenius-bar": [
+				{
+					"type": "webview",
+					"id": "searchgenius.webview",
+					"name": "searchgenius webview"
+				}
+      ]
     }
   },
   "scripts": {
