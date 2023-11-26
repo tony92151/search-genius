@@ -4,6 +4,7 @@ vscode/searchgenius/node_modules
 vscode/searchgenius/.vscode-test/
 vscode/searchgenius/*.vsix
 
+db
 
 repo/
 
