@@ -1,4 +1,5 @@
-langchain==0.0.240
+langchain==0.0.330
+langchain_core
 faiss-cpu
 sentence_transformers
 InstructorEmbedding
