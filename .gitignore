@@ -1,3 +1,5 @@
+.env
+
 vscode/searchgenius/out
 vscode/searchgenius/dist
 vscode/searchgenius/node_modules
