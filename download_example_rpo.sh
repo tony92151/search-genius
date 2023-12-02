@@ -5,7 +5,7 @@ fi
 
 # if filder ./repo/langchain not exists, clone it else do nothing
 if [ ! -d "./repo/langchain" ]; then
-    git clone https://github.com/langchain-ai/langchain.git --branch v0.0.330 ./repo/langchain 
+    git clone https://github.com/langchain-ai/langchain.git --branch v0.0.340 ./repo/langchain 
 fi
 
 cd ./repo/langchain/libs/langchain
