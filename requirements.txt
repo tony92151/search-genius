@@ -9,5 +9,6 @@ python-dotenv
 pydantic==1.10.9
 
 azure-identity
-azure-search-documents==11.4.0b10
+azure-search-documents==11.4.0
+# azure-search-documents==11.4.0b11
 tqdm
