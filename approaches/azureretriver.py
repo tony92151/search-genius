@@ -33,6 +33,7 @@ from azure.search.documents.indexes.models import (
 from azure.search.documents.models import (
     VectorQuery,
     VectorizedQuery,
+    QueryType
 )
 
 AZURE_SEARCH_SERVICE=os.getenv("AZURE_SEARCH_SERVICE")
@@ -121,8 +122,7 @@ class AzureRetrieveApproach:
             semantic_search=semantic_search
         )
 
-        if not self.__index_client:
-            self.init_index_client()
+        self.init_index_client()
 
         result = self.__index_client.create_or_update_index(index)
         print(f'{result.name} created') 
@@ -146,8 +146,24 @@ class AzureRetrieveApproach:
         return result_list
         
     def search(self, index_name: str, vector: list[float], fields:str , top: int = 10):
-        if not self.__search_client:
-            self.init_search_client(index_name=index_name)
+        self.init_search_client(index_name=index_name)
+
+        vector_query = VectorizedQuery(
+            vector=vector, 
+            k_nearest_neighbors=5, 
+            fields=fields
+        )
+        
+        results = self.__search_client.search(  
+            search_text=None,
+            vector_queries= [vector_query], 
+            select=["title", "metadata", "content", "category"],  
+            top=top
+        )  
+        return results
+    
+    def hybrid_search(self, index_name: str, text: str, vector: list[float], fields:str , top: int = 10):
+        self.init_search_client(index_name=index_name)
 
         vector_query = VectorizedQuery(
             vector=vector, 
@@ -156,8 +172,28 @@ class AzureRetrieveApproach:
         )
         
         results = self.__search_client.search(  
-            search_text=None,
+            search_text=text,
             vector_queries= [vector_query], 
             select=["title", "metadata", "content", "category"],  
+            top=top
+        )  
+        return results
+    
+    def hybrid_reranking_search(self, index_name: str, text: str, vector: list[float], fields:str , top: int = 10):
+        self.init_search_client(index_name=index_name)
+
+        vector_query = VectorizedQuery(
+            vector=vector, 
+            k_nearest_neighbors=top, 
+            fields=fields
+        )
+        
+        results = self.__search_client.search(  
+            search_text=text,
+            vector_queries= [vector_query], 
+            select=["title", "metadata", "content", "category"],  
+            top=top,
+            query_type=QueryType.SEMANTIC, 
+            semantic_configuration_name='my-semantic-config', 
         )  
         return results
