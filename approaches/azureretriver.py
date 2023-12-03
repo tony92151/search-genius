@@ -195,5 +195,6 @@ class AzureRetrieveApproach:
             top=top,
             query_type=QueryType.SEMANTIC, 
             semantic_configuration_name='my-semantic-config', 
+            query_caption='extractive'
         )  
         return results
